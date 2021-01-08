@@ -175,14 +175,14 @@ function sendKey(key, x) {
             })
         } if (!err) {
             ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":key,"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
-            adapter.log.info( 'sendKey: ' + key + ' successfully sent to tv');
+            adapter.log.info( 'sendKey2: ' + key + ' successfully sent to tv');
           }
         });
 };
 function sendCmd(cmd, x) {
     wsConnect(function(err) {
         if (err){
-            wserror('sendCommand', cmd, err, x, function(error){
+            wserror('sendCommand3', cmd, err, x, function(error){
                 if(!error){
                     if (cmd[x]=== 'KEY_POWERON'){
                         cmd.splice(x, 1)
@@ -197,7 +197,9 @@ function sendCmd(cmd, x) {
         } if (!err) {
             loop(0);
             function loop(i){
+				
                 if (i < cmd.length){
+					adapter.log.info( 'cmd: ' + i + cmd[i]);
                     delay(function(e){
                         if(!e){
                             if (ws.readyState > 0){
@@ -210,7 +212,7 @@ function sendCmd(cmd, x) {
                                     loop(i)
                                 }
 								else if(cmd[i] === 'KEY_POWERWOL'){
-									adapter.log.info( 'sendCommand:  test');
+									adapter.log.info( 'sendCommand:  KEY_POWERWOL');
 									let res=true;
 								//	let res = await getPowerStateInstant()
 									if (!res){  
@@ -228,7 +230,7 @@ function sendCmd(cmd, x) {
 								}
                                 else if(cmd[i] !== 'KEY_POWERON'||cmd[i] !== 'KEY_POWEROFF'){
                                     ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":cmd[i],"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
-                                    adapter.log.info( 'sendKey: ' + cmd[i] + ' successfully sent to tv');
+                                    adapter.log.info( 'sendKey1: ' + cmd[i] + ' successfully sent to tv');
                                     i++;
                                     if (i === cmd.length){
                                         adapter.log.info( 'sendCommand: ' + cmd + ' successfully sent to tv');
