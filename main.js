@@ -173,9 +173,18 @@ function sendKey(key, x) {
                     if (key !== 'KEY_POWER' && key !== 'KEY_POWERWOL'){sendKey(key,x)};
                 }
             })
-        } if (!err) {
-            ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":key,"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
-            adapter.log.info( 'sendKey2: ' + key + ' successfully sent to tv');
+        } else {
+			if (key === 'KEY_POWERWOL'){
+				adapter.log.info('Will try to switch TV with MAC2: ' + adapter.config.macAddress + ' on');
+				let res = await getPowerStateInstant()
+				
+				//if (!res){ 
+				adapter.log.info('res: ' + res + ' ');
+									
+			}else{
+				ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":key,"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
+				adapter.log.info( 'sendKey2: ' + key + ' successfully sent to tv');
+			}
           }
         });
 };
