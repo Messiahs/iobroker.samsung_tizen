@@ -1,8 +1,12 @@
 {
     "common": {
         "name":                     "samsung_tizen",
-        "version":                  "0.0.12",
+        "version":                  "0.0.13",
 	    "news": {
+		    "0.0.13": {
+              "en": "again wol bug fix,  ws dependency update",
+              "de": "nochmal wol bug fix, ws Abhänigkeit"
+            },
             "0.0.12": {
               "en": "wol bug fix",
               "de": "wol bug fix"
@@ -58,21 +62,21 @@
         "icon":                     "samsung.png",
         "enabled":                  true,
         "license":                  "MIT",
-		"extIcon":                  "https://raw.githubusercontent.com/dahuby/iobroker.samsung_tizen/master/admin/samsung.png",
+		"extIcon":                  "https://raw.githubusercontent.com/messiahs/iobroker.samsung_tizen/master/admin/samsung.png",
 		"keywords":                 ["samsung", "home"],
-        "readme":                   "https://github.com/dahuby/iobroker.samsung_tizen/blob/master/README.md",
+        "readme":                   "https://github.com/messiahs/iobroker.samsung_tizen/blob/master/README.md",
 		"loglevel":                 "info",
         "type":                     "multimedia"
         
     },
     "native": {
         "protocol": "wss",
-        "ipAddress": "192.168.0.1",
+        "ipAddress": "192.168.10.50",
         "port": "8002",
         "token": "0",
         "macAddress": "ab:12:cd:34:ef:56",
         "cmdDelay": "1000",
-        "pollingPort": "9110",
+        "pollingPort": "9197",
         "pollingInterval": "60"
 	
     },

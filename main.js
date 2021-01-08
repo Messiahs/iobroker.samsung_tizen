@@ -121,8 +121,7 @@ function wserror(func, action, err, x, done){
     if ( x == 0 ){
         if(adapter.config.macAddress !== '0'){
             adapter.log.info('Error while: ' + func + ', action: ' + action + ' error: ' + err + ' retry 1/5 will be executed'); 
-            adapter.log.info('Will now try to switch TV with MAC: ' + adapter.config.macAddress + ' on');
-            wol.wake(adapter.config.macAddress);
+           
             done(0);
         };
         if(parseFloat(adapter.config.macAddress) === 0){ done(0)}
@@ -171,7 +170,7 @@ function sendKey(key, x) {
             wserror('sendKey', key, err, x, function(error){
                 if(!error){
                     x++;
-                    if (key !== 'KEY_POWER'){sendKey(key,x)};
+                    if (key !== 'KEY_POWER' && key !== 'KEY_POWERWOL'){sendKey(key,x)};
                 }
             })
         } if (!err) {
@@ -210,6 +209,22 @@ function sendCmd(cmd, x) {
                                     };
                                     loop(i)
                                 }
+								else if(cmd[i] === 'KEY_POWERWOL'){
+									adapter.log.info( 'sendCommand:  test');
+									let res = await getPowerStateInstant(); 
+									if (!res){  
+										adapter.log.info('Will now try to switch TV with MAC2: ' + adapter.config.macAddress + ' on');
+										wol.wake(adapter.config.macAddress);}
+									else {
+										adapter.log.info('switch TV off2');
+									};
+										
+            
+									i++;
+									if (i === cmd.length){
+                                        adapter.log.info( 'sendCommand: ' + cmd + ' successfully sent to tv');
+                                    };
+								}
                                 else if(cmd[i] !== 'KEY_POWERON'||cmd[i] !== 'KEY_POWEROFF'){
                                     ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":cmd[i],"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
                                     adapter.log.info( 'sendKey: ' + cmd[i] + ' successfully sent to tv');
