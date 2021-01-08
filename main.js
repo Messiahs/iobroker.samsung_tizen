@@ -211,7 +211,8 @@ function sendCmd(cmd, x) {
                                 }
 								else if(cmd[i] === 'KEY_POWERWOL'){
 									adapter.log.info( 'sendCommand:  test');
-									let res = await getPowerStateInstant()
+									let res=true;
+								//	let res = await getPowerStateInstant()
 									if (!res){  
 									//	adapter.log.info('Will now try to switch TV with MAC2: ' + adapter.config.macAddress + ' on');
 									//	wol.wake(adapter.config.macAddress);
