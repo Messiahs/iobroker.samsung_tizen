@@ -163,6 +163,11 @@ function getToken() {
         }
     });
 };
+function wake(macAddress){
+	wol.wake(macAddress, function(err, res){
+  adapter.log.info('wakeResult: ' + res);
+});
+};
 function sendKey(key, x) {
     wsConnect(function(err) {
 		adapter.log.info('key: ' + key +' x: ' +x);
@@ -180,7 +185,7 @@ function sendKey(key, x) {
 			if (key === 'KEY_POWERWOL'){
 				adapter.log.info('Will try to switch TV with MAC3: ' + adapter.config.macAddress + ' on');
 				//let res = await getPowerStateInstant()
-				wol.wake(adapter.config.macAddress);
+				wake(adapter.config.macAddress);
 				adapter.log.info('Wake done');
 				//if (!res){ 
 				//adapter.log.info('res: ' + res + ' ');
@@ -190,7 +195,7 @@ function sendKey(key, x) {
 				adapter.log.info( 'sendKey2: ' + key + ' successfully sent to tv');
 				if (key === 'KEY_POWER'){
 					adapter.log.info('Will try to switch TV with MAC4: ' + adapter.config.macAddress + ' on');
-					wol.wake(adapter.config.macAddress);
+					wake(adapter.config.macAddress);
 					adapter.log.info('Wake done');
 				}
 			}
@@ -234,7 +239,7 @@ function sendCmd(cmd, x) {
 									let res=true;
 								//	let res = await getPowerStateInstant()
 									if (!res){  
-									//	adapter.log.info('Will now try to switch TV with MAC2: ' + adapter.config.macAddress + ' on');
+									adapter.log.info('res1 on');
 									//	wol.wake(adapter.config.macAddress);
 									} else {
 										adapter.log.info('switch TV off2');
