@@ -165,6 +165,7 @@ function getToken() {
 };
 function sendKey(key, x) {
     wsConnect(function(err) {
+		adapter.log.info('key: ' + key +' x: ' +x);
         if (err){
             adapter.log.info(err);
             wserror('sendKey', key, err, x, function(error){
@@ -185,6 +186,11 @@ function sendKey(key, x) {
 			}else{
 				ws.send(JSON.stringify({"method":"ms.remote.control","params":{"Cmd":"Click","DataOfCmd":key,"Option":"false","TypeOfRemote":"SendRemoteKey"}}));
 				adapter.log.info( 'sendKey2: ' + key + ' successfully sent to tv');
+				if (key === 'KEY_POWER'){
+					adapter.log.info('Will try to switch TV with MAC4: ' + adapter.config.macAddress + ' on');
+					wol.wake(adapter.config.macAddress);
+					adapter.log.info('Wake done');
+				}
 			}
           }
         });
