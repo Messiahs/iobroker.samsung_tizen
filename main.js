@@ -166,6 +166,8 @@ function getToken() {
 function sendKey(key, x) {
     wsConnect(function(err) {
 		adapter.log.info('key: ' + key +' x: ' +x);
+		adapter.log.info('TV status: ' + adapter.setState('powerOn'););
+		
         if (err){
             adapter.log.info(err);
             wserror('sendKey', key, err, x, function(error){
