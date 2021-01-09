@@ -177,7 +177,7 @@ function sendKey(key, x) {
 			if (key === 'KEY_POWERWOL'){
 				adapter.log.info('Will try to switch TV with MAC2: ' + adapter.config.macAddress + ' on');
 				//let res = await getPowerStateInstant()
-				
+				wol.wake(adapter.config.macAddress);
 				//if (!res){ 
 				//adapter.log.info('res: ' + res + ' ');
 									
