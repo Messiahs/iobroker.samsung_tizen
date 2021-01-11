@@ -6,7 +6,9 @@ const adapter = utils.adapter('samsung_tizen');
 //const utils =    require(__dirname + '/lib/utils');
 const keys =    require(__dirname + '/lib/remotekeys');
 const isPortReachable = require('is-port-reachable');
-const wol = require('wake_on_lan');
+//const wol = require('wake_on_lan');
+const wol = require('node_wake_on_lan');
+
 const WebSocket = require('ws');
 
 let ws;
