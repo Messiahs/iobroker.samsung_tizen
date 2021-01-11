@@ -186,10 +186,10 @@ function sendKey(key, x) {
           ', time stamp: '   + state.ts  + 
           ', last changed: ' + state.lc
     ); 
-
+adapter.log.info('getState End1 ');
 }); 
 
-		adapter.log.info('getState End ');
+		adapter.log.info('getState End2 ');
 		
 		
         if (err){
