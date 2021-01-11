@@ -1,7 +1,10 @@
 "use strict";
-const utils =    require(__dirname + '/lib/utils');
-const keys =    require(__dirname + '/lib/remotekeys');
+
+const utils = require('@iobroker/adapter-core');
 const adapter = utils.adapter('samsung_tizen');
+// Load your modules here, e.g.:
+//const utils =    require(__dirname + '/lib/utils');
+const keys =    require(__dirname + '/lib/remotekeys');
 const isPortReachable = require('is-port-reachable');
 const wol = require('wake_on_lan');
 const WebSocket = require('ws');
@@ -171,10 +174,23 @@ function wake(macAddress){
 function sendKey(key, x) {
     wsConnect(function(err) {
 		adapter.log.info('key: ' + key +' x: ' +x);
-		adapter.log.info('TV status: ' + adapter.getState('powerOn'));
 		
-		let y=adapter.getObject('powerOn');
-		adapter.log.info('y: ' + y);
+		adapter.getState('powerOn', function (err, state) {
+    
+	adapter.log.info('getState start ');
+	
+    adapter.log.info(
+          'State ' + adapter.namespace + '.myState -' + 
+          '  Value: '        + state.val + 
+          ', ack: '          + state.ack + 
+          ', time stamp: '   + state.ts  + 
+          ', last changed: ' + state.lc
+    ); 
+
+}); 
+
+		adapter.log.info('getState End ');
+		
 		
         if (err){
             adapter.log.info(err);
@@ -272,6 +288,7 @@ function sendCmd(cmd, x) {
         });
 };
 async function onoff(key) {
+	 adapter.log.info('onoff:  ' + key)
         if (key === 'KEY_POWERON'){
             let res = await getPowerStateInstant() 
             if (!res){ sendKey('KEY_POWER',0)}
