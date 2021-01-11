@@ -204,7 +204,7 @@ function sendKey(key, x) {
         } else {
 			if (key === 'KEY_POWERWOL'){
 				
-				wol.wake(adapter.config.macAddress, function(error) {
+				wol.wake(adapter.config.macAddress, { address: '192.168.10.255', num_packets: 5, interval:100 }, function(error) {
   if (error) {
     // handle error
 	adapter.log.info('Wol: ' + error);
