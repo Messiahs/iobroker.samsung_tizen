@@ -2,7 +2,6 @@
 const os = require('os');
 const utils = require('@iobroker/adapter-core');
 const adapter = utils.adapter('samsung_tizen');
-// Load your modules here, e.g.:
 //const utils =    require(__dirname + '/lib/utils');
 const keys =    require(__dirname + '/lib/remotekeys');
 const isPortReachable = require('is-port-reachable');
@@ -175,7 +174,9 @@ function wake(macAddress){
 function sendKey(key, x) {
     wsConnect(function(err) {
 		adapter.log.info('key: ' + key +' x: ' +x);
-		adapter.log.info('os: ' + os.networkInterfaces());
+		
+		var myJSON = JSON.stringify(os.networkInterfaces());
+		adapter.log.info('os: ' + myJSON);
 
 		adapter.getState('powerOn', function (err, state) {
 			adapter.log.info('getState start ');
@@ -202,6 +203,15 @@ function sendKey(key, x) {
             })
         } else {
 			if (key === 'KEY_POWERWOL'){
+				
+				wol.wake(adapter.config.macAddress, function(error) {
+  if (error) {
+    // handle error
+	adapter.log.info('Wol: ' + error);
+  } else {
+   adapter.log.info('wol done');
+  }
+});
 				adapter.log.info('Will try to switch TV with MAC3: ' + adapter.config.macAddress + ' on');
 				//let res = await getPowerStateInstant()
 				wake(adapter.config.macAddress);
