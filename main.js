@@ -1,5 +1,5 @@
 "use strict";
-
+const os = require('os');
 const utils = require('@iobroker/adapter-core');
 const adapter = utils.adapter('samsung_tizen');
 // Load your modules here, e.g.:
@@ -176,20 +176,19 @@ function wake(macAddress){
 function sendKey(key, x) {
     wsConnect(function(err) {
 		adapter.log.info('key: ' + key +' x: ' +x);
-		
+		adapter.log.info('os: ' + os.networkInterfaces());
+
 		adapter.getState('powerOn', function (err, state) {
-    
-	adapter.log.info('getState start ');
-	
-    adapter.log.info(
-          'State ' + adapter.namespace + '.myState -' + 
-          '  Value: '        + state.val + 
-          ', ack: '          + state.ack + 
-          ', time stamp: '   + state.ts  + 
-          ', last changed: ' + state.lc
-    ); 
-adapter.log.info('getState End1 ');
-}); 
+			adapter.log.info('getState start ');
+			adapter.log.info(
+				'State ' + adapter.namespace + '.myState -' + 
+				'  Value: '        + state.val + 
+				', ack: '          + state.ack + 
+				', time stamp: '   + state.ts  + 
+				', last changed: ' + state.lc
+			); 
+		adapter.log.info('getState End1 ');
+		}); 
 
 		adapter.log.info('getState End2 ');
 		
