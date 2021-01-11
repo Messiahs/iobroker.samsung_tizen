@@ -61,7 +61,15 @@ function save(callback) {
         <td><h3 class="translate">samsung tizen adapter settings</h3></td>
     </tr></table>
     <p>
-        <span class="translate">protocol</span> <input class="value" id="protocol"/>(http or wss)<br>
+        <span class="translate">protocol</span> 
+                    <div class="input-field col s12 m4 l2">
+                        <select class="value" id="protocol">
+                            <option value="wss" class="translate">wss</option>
+                            <option value="http" class="translate">http</option>
+                        </select>
+                        <label class="translate" for="protocol">type</label>
+                    </div>
+	
         <span class="translate">ipAddress</span> <input class="value" id="ipAddress"/><br>
         <span class="translate">port</span> <input class="value" id="port"/><br>
         <span class="translate">token</span> <input class="value" id="token"/><span class="translate">(0 to deactivate)</span><br>
